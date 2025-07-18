@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Stopwatch</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      color: #fff;
+    }
+
+    .stopwatch-container {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(10px);
+      text-align: center;
+      max-width: 350px;
+      width: 90%;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 30px;
+      color: #ffffff;
+    }
+
+    #time {
+      font-size: 48px;
+      margin-bottom: 30px;
+      letter-spacing: 2px;
+    }
+
+    .buttons button {
+      padding: 10px 20px;
+      margin: 0 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      background-color: #fff;
+      color: #764ba2;
+      font-weight: bold;
+    }
+
+    .buttons button:hover {
+      background-color: #f1f1f1;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 400px) {
+      #time {
+        font-size: 36px;
+      }
+      .buttons button {
+        margin: 10px 5px;
+        width: 100px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="stopwatch-container">
+    <h1>⏱️ Stylish Stopwatch</h1>
+    <div id="time">00:00:00</div>
+    <div class="buttons">
+      <button onclick="start()">Start</button>
+      <button onclick="pause()">Pause</button>
+      <button onclick="reset()">Reset</button>
+    </div>
+  </div>
+
+  <script>
+    let seconds = 0, interval = null;
+
+    function updateTime() {
+      let hrs = String(Math.floor(seconds / 3600)).padStart(2, '0');
+      let mins = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+      let secs = String(seconds % 60).padStart(2, '0');
+      document.getElementById('time').textContent = `${hrs}:${mins}:${secs}`;
+    }
+
+    function start() {
+      if (!interval) {
+        interval = setInterval(() => {
+          seconds++;
+          updateTime();
+        }, 1000);
+      }
+    }
+
+    function pause() {
+      clearInterval(interval);
+      interval = null;
+    }
+
+    function reset() {
+      pause();
+      seconds = 0;
+      updateTime();
+    }
+  </script>
+
+</body>
+</html>
